@@ -186,22 +186,30 @@ python examples/simple_moons_demo.py
 - Visual tools for loss curves and gradient magnitude tracking
 - Tests for accuracy on real-world datasets (`heart.csv`, `train.csv`)
 
-# 5. Requirements
+# 5. Code Execution.
 
-To install the dependencies:
-```python
-pip install -r requirements.txt
+## 5.1. Set up the Environment
+
+#### Step 1: Create and activate the virtual environment
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-## 5.1 `requirements.txt` includes:
+#### Step 2: Install project dependencies
+All required packages are listed in the requirements.txt file:
+```bash
+pip install -r requirements.txt
+```
+This includes:
 
-```python
+```txt
 numpy
 matplotlib
 scikit-learn
 ```
 
-Take into account that `scikit-learn` is only used for generating datasets and computing evaluation metrics. All model training logic is implemented from scratch using `numpy`.
+The `scikit-learn` library is only used for generating datasets and computing evaluation metrics. All model training logic is implemented from scratch using `numpy`.
 
 ## 5.2 Running the Gradient Boosting Model
 You can test and visualize the model using various example scripts and test cases.
