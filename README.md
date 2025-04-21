@@ -186,7 +186,7 @@ Further, early stopping could be extended to use a **validation set** separate f
 
 Lastly, we could improve the model’s runtime performance by **vectorizing the tree split-finding process**, applying techniques like histogram-based binning, and potentially enabling multiprocessing for independent evaluations. These changes would significantly speed up training on large datasets without changing the model's behavior.
 
-## 4.3 Optional Enhancements Implemented (for Extra Credit)
+## 4.3 Optional Enhancements Implemented
 Despite these limitations, we have already incorporated several **optional enhancements** to elevate the capabilities of our implementation beyond the project’s core requirements.
 
 We added support for the **exponential loss**, replicating AdaBoost-like behavior in the functional gradient descent framework. This allows users to choose between exponential and logistic loss functions depending on the learning context.
