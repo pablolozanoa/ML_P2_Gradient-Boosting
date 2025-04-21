@@ -1,74 +1,91 @@
-# Authors: Pablo Lozano Arias & Nicolás Rigau Sinca
+# Authors: Pablo Lozano Arias & Nicolás Rigau Sinca  
 # Project 2: Gradient Boosting Trees from First Principles
 
 ## Overview
 
-This project implements a **Gradient Boosting Tree classifier** from scratch, as described in **Sections 10.9–10.10 of _The Elements of Statistical Learning (2nd Edition)_**. 
+This project implements a **Gradient Boosting Tree classifier** from scratch, as described in **Sections 10.9–10.10 of _The Elements of Statistical Learning (2nd Edition)_**.
 
-The implementation is fully custom - no external ML libraries are used to build the model. Only `numpy` is used for array operations and `matplotlib`/`scikit-learn` are used for **testing and visualization only**.
+The implementation is fully custom — no external ML libraries are used to build the model. Only `numpy` is used for array operations and `matplotlib`/`scikit-learn` are used strictly for **testing, visualization, and dataset generation**.
 
 ---
 
 ## Project Structure
 
 ```plaintext
-Project 2
-│── README.md                             # Project documentation
-│── requirements.txt                      # Required dependencies for the project
-│── models/                               # Main project directory
-│   ├── decision_tree.py                  # Custom regression tree used as weak learner
-│   ├── gradient_boosting.py              # Gradient Boosting Classifier and loss functions
-│── tests/                                # Contains test scripts
-│   ├── simple_moons_demo.py              # Test script using synthetic make_moons dataset
+Project_2pla/
+│── README.md                              # Project documentation
+│── requirements.txt                       # Required dependencies
+│
+├── data/                                  # Real-world datasets
+│   ├── heart/
+│   │   └── heart.csv                      # Heart disease dataset
+│   ├── titanic/
+│   │   └── train.csv                      # Titanic dataset
+│
+├── examples/                              # Demo + visualization scripts
+│   ├── heart_visualizations.py            # ROC, confusion matrix, etc. (heart)
+│   ├── titanic_visualizations.py          # ROC, confusion matrix, etc. (titanic)
+│   ├── simple_moons_demo.py               # Synthetic moons dataset demo
+│   └── loss_analysis.py                   # Plots loss curves and gradient decay
+│
+├── models/                                # Core model logic
+│   ├── decision_tree.py                   # Custom regression tree
+│   └── gradient_boosting.py               # Boosting logic + loss functions
+│
+├── tests/                                 # Full test suite
+│   ├── test_custom_synthetic_data.py      # XOR, rings, separable patterns
+│   ├── test_gradient_boosting.py          # General functionality and metrics
+│   ├── test_heart.py                      # Real-world heart dataset test
+│   └── test_titanic.py                    # Real-world Titanic dataset test
+
 ```
-
-
 ---
 
 ## 1. What does the model do and when should it be used?
+- This model implements a binary classifier using the gradient boosting technique:
+- A sequence of shallow decision trees (regression trees) is trained.
+- Each tree fits the negative gradient of the loss (pseudo-residuals).
+- Final prediction is an additive combination of all learners.
 
-This model implements a **binary classifier** using the gradient boosting technique:
-- It builds a sequence of shallow decision trees.
-- Each new tree corrects the mistakes (residuals) of the previous trees.
-- The final prediction is an additive combination of all trees.
-
-Use this model when:
-- You need a strong classifier for **binary classification**.
-- You want to train an interpretable model from scratch.
-- You want fine-grained control over training and overfitting.
+### 1.1 Use this model when:
+- You want a strong, interpretable model from scratch.
+- You are solving binary classification problems.
+- You want full control over training and customization.
 
 ---
 
 ## 2. How did you test your model?
 
-We created our own test data using `make_moons` from `scikit-learn`, which generates a challenging non-linear classification problem.
+### 2.1 Datasets used:
+- Synthetic: moons, XOR pattern, concentric rings, linear blobs
+- Real-world: heart.csv and train.csv (Titanic)
 
-### 2.1 Testing Strategy:
-- Verified **training accuracy**.
-- Visually validated the **decision boundary**.
-- Tracked **logistic loss** over each boosting iteration.
-- Added **early stopping** to observe convergence behavior.
+### 2.2 Testing Strategy:
+- Training accuracy assertions on multiple patterns
+- ROC curves and confusion matrices on real data
+- Visualizations for decision boundaries and prediction probabilities
+- Gradient magnitude decay and loss convergence plots
 
-All these tests are contained in `tests/simple_moons_demo.py`.
+### 2.3 Visual tools in:
+`examples/simple_moons_demo.py`
+`examples/heart_visualizations.py`
+`examples/titanic_visualizations.py`
+`examples/loss_analysis.py`
 
 ---
 
 ## 3. Parameters Exposed for Tuning
-
-The model can be configured via several hyperparameters:
-
-| Parameter               | Description |
-|------------------------|-------------|
-| `n_estimators`         | Number of boosting rounds (trees) |
-| `learning_rate`        | Controls the contribution of each tree |
-| `max_depth`            | Maximum depth of individual trees |
-| `min_samples_split`    | Minimum number of samples to split a node |
-| `loss_function`        | `'logistic'` (default) or `'exponential'` |
-| `class_weight`         | Optional class weight dictionary |
-| `early_stopping_rounds` | Stop early if loss does not improve |
+The model is fully tunable through the following parameters:
+Parameter | Description
+n_estimators | Number of boosting rounds (trees)
+learning_rate | Step size for each tree's contribution
+max_depth | Maximum tree depth
+min_samples_split | Minimum samples to allow a split
+loss_function | 'logistic' (default) or 'exponential'
+class_weight | Optional class weights (e.g. {1: 1.0, 0: 2.0})
+early_stopping_rounds | Stops boosting early if loss doesn't improve
 
 ### 3.1 Example Usage
-
 ```python
 from models.gradient_boosting import GradientBoostingClassifier
 from sklearn.datasets import make_moons
@@ -92,48 +109,47 @@ model.fit(X, y)
 y_pred = model.predict(X)
 print("Training accuracy:", np.mean(y_pred == y))
 ```
-To run a complete demo with plotting:
-
-```python 
-python tests/simple_moons_demo.py
+### 3.2 To run the full demo with plots:
+```python
+python examples/simple_moons_demo.py
 ```
 
 ## 4. Are there specific inputs the model struggles with?
-
 ### 4.1 Current limitations:
 
-- Only binary classification is supported.
-- No automatic handling of unbalanced classes without class_weight.
-- Computational performance is limited (no parallelism or optimization).
-- Large datasets may be slow to train.
+- Only supports binary classification
+- No pruning or automatic regularization of trees
+- No multiclass or softmax support
+- No hardware acceleration or multiprocessing
+- Class imbalance must be manually handled via class_weight
 
 ### 4.2 With more time:
-
-- We could support multiclass classification.
-- Add tree pruning, feature importance, or prediction explanations.
-- Use numpy vectorization to accelerate training.
-
+- Extend to multiclass classification
+- Implement tree pruning, feature importance, and calibrated probabilities
+- Add early stopping with validation sets
+- Improve performance with vectorized split finding and batching
 
 ### 4.3 Optional Enhancements Implemented (for Extra Credit)
-* Support for sample and class weights
-* Support for exponential loss (like `AdaBoost`)
-* Implemented early stopping with patience tracking
-* Saved and plotted loss history across boosting iterations
-
----
+- Support for exponential loss (`AdaBoost` style)
+- Support for sample and class weighting
+- Early stopping with patience tracking
+- Loss history saved and plotted
+- Visual tools for loss curves and gradient magnitude tracking
+- Tests for accuracy on real-world datasets (`heart.csv`, `train.csv`)
 
 ## 5. Requirements
 
-Install the exact dependencies with:
-
+To install the dependencies:
 ```python
 pip install -r requirements.txt
 ```
 
-### 5.1 Contents of requirements.txt:
+### 5.1 `requirements.txt` includes:
 
+```python
 numpy
 matplotlib
 scikit-learn
+```
 
-Take into account that `scikit-learn` is only used to generate test datasets (e.g., make_moons) and not used in any model training.
+Take into account that `scikit-learn` is only used for generating datasets (e.g., `make_moons`) and for metrics like `accuracy_score`, `roc_curve`, etc. The model is trained entirely from scratch.
