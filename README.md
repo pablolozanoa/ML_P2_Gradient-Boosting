@@ -14,3 +14,23 @@ Put your README below. Answer the following questions.
 * How did you test your model to determine if it is working reasonably correctly?
 * What parameters have you exposed to users of your implementation in order to tune performance? (Also perhaps provide some basic usage examples.)
 * Are there specific inputs that your implementation has trouble with? Given more time, could you work around these or is it fundamental?
+
+
+
+----------------------------------------------------------------------------
+
+# Project 2: Gradient Boosting Trees from First Principles
+
+## Overview
+
+This project implements a **Gradient Boosting Tree classifier** from scratch, as described in **Sections 10.9–10.10 of _The Elements of Statistical Learning (2nd Edition)_**. 
+
+The implementation is fully custom — no external ML libraries are used to build the model. Only `numpy` is used for array operations and `matplotlib`/`scikit-learn` are used for **testing and visualization only**.
+
+---
+
+## Project Structure
+
+project2/ ├── models/ │ ├── decision_tree.py # Custom decision tree (for regression) │ └── gradient_boosting.py # Main boosting class and loss functions ├── tests/ │ └── simple_moons_demo.py # Example test using synthetic data ├── requirements.txt # Only necessary dependencies └── README.md #
+
+
