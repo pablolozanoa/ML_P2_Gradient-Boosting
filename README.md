@@ -54,22 +54,71 @@ This model should be used when you need a strong and interpretable machine learn
 ---
 
 ## 2. How did you test your model?
+To thoroughly validate the correctness, robustness, and generalization capability of our Gradient Boosting model, we designed a comprehensive three-step testing process that includes synthetic data generation, benchmarking with standard datasets from the `scikit-learn` library, and evaluation on real-world datasets downloaded from Kaggle.
 
-### 2.1 Datasets used:
-- Synthetic: moons, XOR pattern, concentric rings, linear blobs
-- Real-world: heart.csv and train.csv (Titanic)
+### 2.1 Step 1: Manually Generated Synthetic Datasets
+We created custom datasets programmatically to simulate specific classification challenges. These datasets allowed us to test how the model handles known, well-structured problems where the ideal behavior is predictable. Examples include:
 
-### 2.2 Testing Strategy:
-- Training accuracy assertions on multiple patterns
-- ROC curves and confusion matrices on real data
-- Visualizations for decision boundaries and prediction probabilities
-- Gradient magnitude decay and loss convergence plots
+- *Linearly separable data*: to confirm the model learns basic separable structures.
 
-### 2.3 Visual tools in:
-`examples/simple_moons_demo.py`
-`examples/heart_visualizations.py`
-`examples/titanic_visualizations.py`
-`examples/loss_analysis.py`
+- *XOR pattern*: a non-linearly separable problem that tests depth and ensemble learning.
+
+- *Concentric rings*: to check how the model handles radial decision boundaries.
+
+All of these are tested in `tests/test_custom_synthetic_data.py`, which validates the model’s ability to:
+
+- Accurately classify each of these patterns.
+
+- Generalize when noise is added.
+
+- Achieve high accuracy on structured datasets with expected behavior.
+
+### 2.2 Step 2: Datasets from scikit-learn
+We used standard synthetic datasets from the `scikit-learn` library for reproducibility and benchmarking:
+
+- `make_moons`: Non-linear, crescent-shaped dataset with added noise.
+
+- `make_classification`: Randomly generated classification datasets for general-purpose testing.
+
+- `make_circles`: Nested circular data for testing non-linear boundaries.
+
+- `make_gaussian_quantiles`: Gaussian-distributed data for boundary complexity.
+
+These tests are contained in `tests/test_gradient_boosting.py`, which covers:
+
+- Basic training accuracy checks across multiple generated datasets.
+
+- Probability output shape validation from `predict_proba`.
+
+- Evaluation of model behavior under overfitting and underfitting conditions.
+
+- Confidence in model stability with small datasets and noise.
+
+### 2.3 Step 3: Real-World Datasets (from Kaggle)
+To validate real-world performance, we used two datasets obtained from *Kaggle*:
+
+- `heart.csv`: A heart disease diagnosis dataset with categorical and numerical features.
+
+- `train.csv`: The classic Titanic survival dataset with missing values and categorical encoding.
+
+Both datasets were cleaned, preprocessed, and evaluated using a held-out test split.
+
+- `tests/test_heart.py`: Tests classification accuracy on the Heart Disease dataset, checking that the model generalizes well beyond synthetic cases and meets a minimum performance threshold (asserts accuracy > 85%).
+
+- `tests/test_titanic.py`: Tests the model on the Titanic dataset, verifying it handles missing values and categorical features, and asserting an accuracy threshold (expected > 75%).
+
+### 2.4 Visual Tools
+We also built several visualization scripts to help analyze training dynamics, interpret predictions, and debug the model:
+
+- `examples/simple_moons_demo.py`: Decision boundary visualization and training loss plot on make_moons.
+
+- `examples/heart_visualizations.py`: ROC curve, confusion matrix, and predicted probability histograms for the Heart dataset.
+
+- `examples/titanic_visualizations.py`: Same metrics as above, applied to Titanic data.
+
+- `examples/loss_analysis.py`: Visualizes loss convergence and tracks the average gradient magnitude across boosting rounds.
+
+These tools are essential for understanding how the model evolves during training and where it performs well (or poorly).
 
 ---
 
