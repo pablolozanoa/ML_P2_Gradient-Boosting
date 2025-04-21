@@ -46,15 +46,10 @@ Project_2pla/
 ---
 
 ## 1. What does the model do and when should it be used?
-- This model implements a binary classifier using the gradient boosting technique:
-- A sequence of shallow decision trees (regression trees) is trained.
-- Each tree fits the negative gradient of the loss (pseudo-residuals).
-- Final prediction is an additive combination of all learners.
+The model developed in this project is a binary classifier built using the gradient boosting technique. It trains a sequence of shallow decision trees, specifically regression trees, that iteratively improve the model's performance. At each stage of training, a new tree is fitted to the negative gradient of the loss function, commonly referred to as the pseudo-residuals. These trees are then added together in an additive fashion, allowing the ensemble to gradually correct the errors made by previous learners. The result is a powerful and flexible classifier that can capture complex patterns in the data.
 
 ### 1.1 Use this model when:
-- You want a strong, interpretable model from scratch.
-- You are solving binary classification problems.
-- You want full control over training and customization.
+This model should be used when you need a strong and interpretable machine learning model for binary classification tasks. It is especially appropriate when building from first principles is required, or when you want full control over the training process, including hyperparameters, loss functions, and stopping criteria.
 
 ---
 
