@@ -114,3 +114,8 @@ model.fit(X, y)
 y_pred = model.predict(X)
 print("Training accuracy:", np.mean(y_pred == y))
 ```
+To run a complete demo with plotting:
+
+```python 
+python tests/simple_moons_demo.py
+```
