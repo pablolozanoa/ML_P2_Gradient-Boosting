@@ -186,14 +186,14 @@ python examples/simple_moons_demo.py
 - Visual tools for loss curves and gradient magnitude tracking
 - Tests for accuracy on real-world datasets (`heart.csv`, `train.csv`)
 
-## 5. Requirements
+# 5. Requirements
 
 To install the dependencies:
 ```python
 pip install -r requirements.txt
 ```
 
-### 5.1 `requirements.txt` includes:
+## 5.1 `requirements.txt` includes:
 
 ```python
 numpy
@@ -203,7 +203,7 @@ scikit-learn
 
 Take into account that `scikit-learn` is only used for generating datasets and computing evaluation metrics. All model training logic is implemented from scratch using `numpy`.
 
-### 5.2 Running the Gradient Boosting Model
+## 5.2 Running the Gradient Boosting Model
 You can test and visualize the model using various example scripts and test cases.
 
 **Example: Run on a synthetic dataset**
@@ -229,7 +229,7 @@ Analyze training loss and average gradient magnitude:
 python examples/loss_analysis.py
 ```
 
-### 5.3 Running the Full Test Suite
+## 5.3 Running the Full Test Suite
 The `tests/` directory contains a full suite of validation scripts.
 
 **Step 1: Navigate to the tests directory**
@@ -242,22 +242,9 @@ cd tests
 pytest
 ```
 
-To view detailed output and print statements:
-```python
-pytest -s
-```
-
-Each test file serves a specific purpose:
-
-- `test_custom_synthetic_data.py`: Validates model accuracy on XOR, linear, and ring patterns.
-
-- `test_gradient_boosting.py`: Checks output shapes, over/underfitting, and edge cases.
-
-- `test_heart.py`: Trains and tests on the heart disease dataset. Asserts minimum accuracy > 85%.
-
-- `test_titanic.py`: Validates performance on the Titanic dataset. Asserts accuracy > 75%.
+Each test file serves a specific purpose as explained in Section 2.
 
 You can also run any test individually, for example:
 ```python
-python test_heart.py
+pytest test_heart.py
 ```
