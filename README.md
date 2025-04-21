@@ -31,6 +31,86 @@ The implementation is fully custom — no external ML libraries are used to buil
 
 ## Project Structure
 
-project2/ ├── models/ │ ├── decision_tree.py # Custom decision tree (for regression) │ └── gradient_boosting.py # Main boosting class and loss functions ├── tests/ │ └── simple_moons_demo.py # Example test using synthetic data ├── requirements.txt # Only necessary dependencies └── README.md #
+```plaintext
+Project 2
+│── README.md                             # Project documentation
+│── requirements.txt                      # Required dependencies for the project
+│── models/                               # Main project directory
+│   ├── decision_tree.py                  # Custom regression tree used as weak learner
+│   ├── gradient_boosting.py              # Gradient Boosting Classifier and loss functions
+│── tests/                                # Contains test scripts
+│   ├── simple_moons_demo.py              # Test script using synthetic make_moons dataset
+```
 
 
+---
+
+## What does the model do and when should it be used?
+
+This model implements a **binary classifier** using the gradient boosting technique:
+- It builds a sequence of shallow decision trees.
+- Each new tree corrects the mistakes (residuals) of the previous trees.
+- The final prediction is an additive combination of all trees.
+
+Use this model when:
+- You need a strong classifier for **binary classification**.
+- You want to train an interpretable model from scratch.
+- You want fine-grained control over training and overfitting.
+
+---
+
+## How did you test your model?
+
+We created our own test data using `make_moons` from `scikit-learn`, which generates a challenging non-linear classification problem.
+
+### Testing Strategy:
+- Verified **training accuracy**.
+- Visually validated the **decision boundary**.
+- Tracked **logistic loss** over each boosting iteration.
+- Added **early stopping** to observe convergence behavior.
+
+All these tests are contained in `tests/simple_moons_demo.py`.
+
+---
+
+## Parameters Exposed for Tuning
+
+The model can be configured via several hyperparameters:
+
+| Parameter               | Description |
+|------------------------|-------------|
+| `n_estimators`         | Number of boosting rounds (trees) |
+| `learning_rate`        | Controls the contribution of each tree |
+| `max_depth`            | Maximum depth of individual trees |
+| `min_samples_split`    | Minimum number of samples to split a node |
+| `loss_function`        | `'logistic'` (default) or `'exponential'` |
+| `class_weight`         | Optional class weight dictionary |
+| `early_stopping_rounds` | Stop early if loss does not improve |
+
+---
+
+## Example Usage
+
+```python
+from models.gradient_boosting import GradientBoostingClassifier
+from sklearn.datasets import make_moons
+import numpy as np
+
+# Create synthetic dataset
+X, y = make_moons(n_samples=300, noise=0.25, random_state=42)
+
+# Train model
+model = GradientBoostingClassifier(
+    n_estimators=200,
+    learning_rate=0.1,
+    max_depth=2,
+    min_samples_split=5,
+    loss_function='logistic',
+    class_weight={-1: 1.0, 1: 1.0},
+    early_stopping_rounds=10
+)
+
+model.fit(X, y)
+y_pred = model.predict(X)
+print("Training accuracy:", np.mean(y_pred == y))
+```
