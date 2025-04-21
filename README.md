@@ -1,11 +1,11 @@
 # Project 2: Gradient Boosting Trees from First Principles
-## Authors
+# Authors
 - Pablo Lozano Arias    (A20599454)  
 - Nicolás Rigau Sinca   (A20595377)
 
 ---
 
-## Overview
+# Overview
 
 This project implements a **Gradient Boosting Tree classifier** from scratch, as described in **Sections 10.9–10.10 of _The Elements of Statistical Learning (2nd Edition)_**.
 
@@ -13,7 +13,7 @@ The implementation is fully custom — no external ML libraries are used to buil
 
 ---
 
-## Project Structure
+# Project Structure
 
 ```plaintext
 Project_2pla/
@@ -45,18 +45,18 @@ Project_2pla/
 ```
 ---
 
-## 1. What does the model do and when should it be used?
+# 1. What does the model do and when should it be used?
 The model developed in this project is a binary classifier built using the gradient boosting technique. It trains a sequence of shallow decision trees, specifically regression trees, that iteratively improve the model's performance. At each stage of training, a new tree is fitted to the negative gradient of the loss function, commonly referred to as the pseudo-residuals. These trees are then added together in an additive fashion, allowing the ensemble to gradually correct the errors made by previous learners. The result is a powerful and flexible classifier that can capture complex patterns in the data.
 
-### 1.1 Use this model when:
+## 1.1 Use this model when:
 This model should be used when you need a strong and interpretable machine learning model for binary classification tasks. It is especially appropriate when building from first principles is required, or when you want full control over the training process, including hyperparameters, loss functions, and stopping criteria.
 
 ---
 
-## 2. How did you test your model?
+# 2. How did you test your model?
 To thoroughly validate the correctness, robustness, and generalization capability of our Gradient Boosting model, we designed a comprehensive three-step testing process that includes synthetic data generation, benchmarking with standard datasets from the `scikit-learn` library, and evaluation on real-world datasets downloaded from Kaggle.
 
-### 2.1 Step 1: Manually Generated Synthetic Datasets
+## 2.1 Step 1: Manually Generated Synthetic Datasets
 We created custom datasets programmatically to simulate specific classification challenges. These datasets allowed us to test how the model handles known, well-structured problems where the ideal behavior is predictable. Examples include:
 
 - *Linearly separable data*: to confirm the model learns basic separable structures.
@@ -73,7 +73,7 @@ All of these are tested in `tests/test_custom_synthetic_data.py`, which validate
 
 - Achieve high accuracy on structured datasets with expected behavior.
 
-### 2.2 Step 2: Datasets from scikit-learn
+## 2.2 Step 2: Datasets from scikit-learn
 We used standard synthetic datasets from the `scikit-learn` library for reproducibility and benchmarking:
 
 - `make_moons`: Non-linear, crescent-shaped dataset with added noise.
@@ -94,7 +94,7 @@ These tests are contained in `tests/test_gradient_boosting.py`, which covers:
 
 - Confidence in model stability with small datasets and noise.
 
-### 2.3 Step 3: Real-World Datasets (from Kaggle)
+## 2.3 Step 3: Real-World Datasets (from Kaggle)
 To validate real-world performance, we used two datasets obtained from *Kaggle*:
 
 - `heart.csv`: A heart disease diagnosis dataset with categorical and numerical features.
@@ -107,7 +107,7 @@ Both datasets were cleaned, preprocessed, and evaluated using a held-out test sp
 
 - `tests/test_titanic.py`: Tests the model on the Titanic dataset, verifying it handles missing values and categorical features, and asserting an accuracy threshold (expected > 75%).
 
-### 2.4 Visual Tools
+## 2.4 Visual Tools
 We also built several visualization scripts to help analyze training dynamics, interpret predictions, and debug the model:
 
 - `examples/simple_moons_demo.py`: Decision boundary visualization and training loss plot on make_moons.
@@ -122,7 +122,7 @@ These tools are essential for understanding how the model evolves during trainin
 
 ---
 
-## 3. Parameters Exposed for Tuning
+# 3. Parameters Exposed for Tuning
 The model is fully tunable through the following parameters:
 | Parameter               | Description |
 |------------------------|-------------|
@@ -134,7 +134,7 @@ The model is fully tunable through the following parameters:
 | class_weight         | Optional class weight dictionary |
 | early_stopping_rounds | Stop early if loss does not improve |
 
-### 3.1 Example Usage
+## 3.1 Example Usage
 ```python
 from models.gradient_boosting import GradientBoostingClassifier
 from sklearn.datasets import make_moons
@@ -158,13 +158,13 @@ model.fit(X, y)
 y_pred = model.predict(X)
 print("Training accuracy:", np.mean(y_pred == y))
 ```
-### 3.2 To run the full demo with plots:
+## 3.2 To run the full demo with plots:
 ```python
 python examples/simple_moons_demo.py
 ```
 
-## 4. Are there specific inputs the model struggles with?
-### 4.1 Current limitations:
+# 4. Are there specific inputs the model struggles with?
+## 4.1 Current limitations:
 
 - Only supports binary classification
 - No pruning or automatic regularization of trees
@@ -172,13 +172,13 @@ python examples/simple_moons_demo.py
 - No hardware acceleration or multiprocessing
 - Class imbalance must be manually handled via class_weight
 
-### 4.2 With more time:
+## 4.2 With more time:
 - Extend to multiclass classification
 - Implement tree pruning, feature importance, and calibrated probabilities
 - Add early stopping with validation sets
 - Improve performance with vectorized split finding and batching
 
-### 4.3 Optional Enhancements Implemented (for Extra Credit)
+## 4.3 Optional Enhancements Implemented (for Extra Credit)
 - Support for exponential loss (`AdaBoost` style)
 - Support for sample and class weighting
 - Early stopping with patience tracking
@@ -186,22 +186,15 @@ python examples/simple_moons_demo.py
 - Visual tools for loss curves and gradient magnitude tracking
 - Tests for accuracy on real-world datasets (`heart.csv`, `train.csv`)
 
-## 5. Requirements and Code Execution
-### 5.1 Set Up the Environment
-To ensure a clean and reproducible environment, we recommend using a Python virtual environment.
+## 5. Requirements
 
-**Step 1: Create and activate the virtual environment**
-```python
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-**Step 2: Install the project dependencies**
-All required packages are listed in the requirements.txt file. To install them, run:
+To install the dependencies:
 ```python
 pip install -r requirements.txt
 ```
-Contents of `requirements.txt`:
+
+### 5.1 `requirements.txt` includes:
+
 ```python
 numpy
 matplotlib
