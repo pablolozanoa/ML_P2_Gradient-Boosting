@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from sklearn.datasets import make_moons
 import sys
 sys.path.insert(0, '..')
-
 from models.gradient_boosting import GradientBoostingClassifier
 
 # ----------- Generate synthetic classification data -----------
