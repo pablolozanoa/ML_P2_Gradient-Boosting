@@ -46,7 +46,7 @@ Project 2
 
 ---
 
-## What does the model do and when should it be used?
+## 1. What does the model do and when should it be used?
 
 This model implements a **binary classifier** using the gradient boosting technique:
 - It builds a sequence of shallow decision trees.
@@ -60,11 +60,11 @@ Use this model when:
 
 ---
 
-## How did you test your model?
+## 2. How did you test your model?
 
 We created our own test data using `make_moons` from `scikit-learn`, which generates a challenging non-linear classification problem.
 
-### Testing Strategy:
+### 2.1 Testing Strategy:
 - Verified **training accuracy**.
 - Visually validated the **decision boundary**.
 - Tracked **logistic loss** over each boosting iteration.
@@ -74,7 +74,7 @@ All these tests are contained in `tests/simple_moons_demo.py`.
 
 ---
 
-## Parameters Exposed for Tuning
+## 3. Parameters Exposed for Tuning
 
 The model can be configured via several hyperparameters:
 
@@ -88,9 +88,7 @@ The model can be configured via several hyperparameters:
 | `class_weight`         | Optional class weight dictionary |
 | `early_stopping_rounds` | Stop early if loss does not improve |
 
----
-
-## Example Usage
+### 3.1 Example Usage
 
 ```python
 from models.gradient_boosting import GradientBoostingClassifier
@@ -121,29 +119,31 @@ To run a complete demo with plotting:
 python tests/simple_moons_demo.py
 ```
 
-## Are there specific inputs the model struggles with?
+## 4. Are there specific inputs the model struggles with?
 
-### Current limitations:
+### 4.1 Current limitations:
 
 - Only binary classification is supported.
 - No automatic handling of unbalanced classes without class_weight.
 - Computational performance is limited (no parallelism or optimization).
 - Large datasets may be slow to train.
 
-### With more time:
+### 4.2 With more time:
 
 - We could support multiclass classification.
 - Add tree pruning, feature importance, or prediction explanations.
 - Use numpy vectorization to accelerate training.
 
 
-## Optional Enhancements Implemented (for Extra Credit)
+### 4.3 Optional Enhancements Implemented (for Extra Credit)
 * Support for sample and class weights
-* Support for exponential loss (like AdaBoost)
+* Support for exponential loss (like `AdaBoost`)
 * Implemented early stopping with patience tracking
 * Saved and plotted loss history across boosting iterations
 
-## Requirements
+---
+
+## 5. Requirements
 
 Install the exact dependencies with:
 
@@ -151,10 +151,10 @@ Install the exact dependencies with:
 pip install -r requirements.txt
 ```
 
-### Contents of requirements.txt:
+### 5.1 Contents of requirements.txt:
 
 numpy
 matplotlib
 scikit-learn
 
-Take into account that _scikit-learn_ is only used to generate test datasets (e.g., make_moons) and not used in any model training.
+Take into account that `scikit-learn` is only used to generate test datasets (e.g., make_moons) and not used in any model training.
