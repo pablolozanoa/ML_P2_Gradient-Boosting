@@ -76,14 +76,15 @@ Project_2pla/
 
 ## 3. Parameters Exposed for Tuning
 The model is fully tunable through the following parameters:
-Parameter | Description
-n_estimators | Number of boosting rounds (trees)
-learning_rate | Step size for each tree's contribution
-max_depth | Maximum tree depth
-min_samples_split | Minimum samples to allow a split
-loss_function | 'logistic' (default) or 'exponential'
-class_weight | Optional class weights (e.g. {1: 1.0, 0: 2.0})
-early_stopping_rounds | Stops boosting early if loss doesn't improve
+| Parameter               | Description |
+|------------------------|-------------|
+| n_estimators         | Number of boosting rounds (trees) |
+| learning_rate        | Controls the contribution of each tree |
+| max_depth            | Maximum depth of individual trees |
+| min_samples_split    | Minimum number of samples to split a node |
+| loss_function        | 'logistic' (default) or 'exponential' |
+| class_weight         | Optional class weight dictionary |
+| early_stopping_rounds | Stop early if loss does not improve |
 
 ### 3.1 Example Usage
 ```python
