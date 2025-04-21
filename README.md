@@ -186,19 +186,85 @@ python examples/simple_moons_demo.py
 - Visual tools for loss curves and gradient magnitude tracking
 - Tests for accuracy on real-world datasets (`heart.csv`, `train.csv`)
 
-## 5. Requirements
+## 5. Requirements and Code Execution
+### 5.1 Set Up the Environment
+To ensure a clean and reproducible environment, we recommend using a Python virtual environment.
 
-To install the dependencies:
+**Step 1: Create and activate the virtual environment**
+```python
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+**Step 2: Install the project dependencies**
+All required packages are listed in the requirements.txt file. To install them, run:
 ```python
 pip install -r requirements.txt
 ```
-
-### 5.1 `requirements.txt` includes:
-
+Contents of `requirements.txt`:
 ```python
 numpy
 matplotlib
 scikit-learn
 ```
 
-Take into account that `scikit-learn` is only used for generating datasets (e.g., `make_moons`) and for metrics like `accuracy_score`, `roc_curve`, etc. The model is trained entirely from scratch.
+Take into account that `scikit-learn` is only used for generating datasets and computing evaluation metrics. All model training logic is implemented from scratch using `numpy`.
+
+### 5.2 Running the Gradient Boosting Model
+You can test and visualize the model using various example scripts and test cases.
+
+**Example: Run on a synthetic dataset**
+This will generate a decision boundary plot and show training loss progression:
+```python
+python examples/simple_moons_demo.py
+```
+
+**Visualize performance on real-world datasets**
+Run with the Heart Disease dataset (from Kaggle):
+
+```python
+python examples/heart_visualizations.py
+```
+
+Run with the Titanic dataset (from Kaggle):
+```python
+python examples/titanic_visualizations.py
+```
+
+Analyze training loss and average gradient magnitude:
+```python
+python examples/loss_analysis.py
+```
+
+### 5.3 Running the Full Test Suite
+The `tests/` directory contains a full suite of validation scripts.
+
+**Step 1: Navigate to the tests directory**
+```python
+cd tests
+```
+
+**Step 2: Run all tests using PyTest**
+```python
+pytest
+```
+
+To view detailed output and print statements:
+```python
+pytest -s
+```
+
+Each test file serves a specific purpose:
+
+- `test_custom_synthetic_data.py`: Validates model accuracy on XOR, linear, and ring patterns.
+
+- `test_gradient_boosting.py`: Checks output shapes, over/underfitting, and edge cases.
+
+- `test_heart.py`: Trains and tests on the heart disease dataset. Asserts minimum accuracy > 85%.
+
+- `test_titanic.py`: Validates performance on the Titanic dataset. Asserts accuracy > 75%.
+
+You can also run any test individually, for example:
+```python
+python test_heart.py
+```
