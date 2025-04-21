@@ -1,5 +1,9 @@
-# Authors: Pablo Lozano Arias & Nicolás Rigau Sinca  
 # Project 2: Gradient Boosting Trees from First Principles
+## Authors
+- Pablo Lozano Arias    (A20599454)  
+- Nicolás Rigau Sinca   (A20595377)
+
+---
 
 ## Overview
 
