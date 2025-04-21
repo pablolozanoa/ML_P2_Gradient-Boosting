@@ -19,6 +19,7 @@ Put your README below. Answer the following questions.
 
 ----------------------------------------------------------------------------
 
+# Authors: Pablo Lozano Arias & Nicolás Rigau Sinca
 # Project 2: Gradient Boosting Trees from First Principles
 
 ## Overview
@@ -119,3 +120,41 @@ To run a complete demo with plotting:
 ```python 
 python tests/simple_moons_demo.py
 ```
+
+## Are there specific inputs the model struggles with?
+
+### Current limitations:
+
+- Only binary classification is supported.
+- No automatic handling of unbalanced classes without class_weight.
+- Computational performance is limited (no parallelism or optimization).
+- Large datasets may be slow to train.
+
+### With more time:
+
+- We could support multiclass classification.
+- Add tree pruning, feature importance, or prediction explanations.
+- Use numpy vectorization to accelerate training.
+
+
+## Optional Enhancements Implemented (for Extra Credit)
+* Support for sample and class weights
+* Support for exponential loss (like AdaBoost)
+* Implemented early stopping with patience tracking
+* Saved and plotted loss history across boosting iterations
+
+## Requirements
+
+Install the exact dependencies with:
+
+```python
+pip install -r requirements.txt
+```
+
+### Contents of requirements.txt:
+
+numpy
+matplotlib
+scikit-learn
+
+Take into account that _scikit-learn_ is only used to generate test datasets (e.g., make_moons) and not used in any model training.
