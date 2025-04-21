@@ -26,7 +26,7 @@ Put your README below. Answer the following questions.
 
 This project implements a **Gradient Boosting Tree classifier** from scratch, as described in **Sections 10.9–10.10 of _The Elements of Statistical Learning (2nd Edition)_**. 
 
-The implementation is fully custom — no external ML libraries are used to build the model. Only `numpy` is used for array operations and `matplotlib`/`scikit-learn` are used for **testing and visualization only**.
+The implementation is fully custom - no external ML libraries are used to build the model. Only `numpy` is used for array operations and `matplotlib`/`scikit-learn` are used for **testing and visualization only**.
 
 ---
 
