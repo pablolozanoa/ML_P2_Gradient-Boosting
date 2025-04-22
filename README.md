@@ -164,27 +164,40 @@ python examples/simple_moons_demo.py
 ```
 
 # 4. Are there specific inputs the model struggles with?
-## 4.1 Current limitations:
+While our gradient boosting implementation performs well on a variety of structured and real-world datasets, there are some known limitations inherent to its current design. These constraints arise both from the choice of algorithms and the first-principles approach taken in the implementation.
 
-- Only supports binary classification
-- No pruning or automatic regularization of trees
-- No multiclass or softmax support
-- No hardware acceleration or multiprocessing
-- Class imbalance must be manually handled via class_weight
+## 4.1 Current Limitations
+At this stage, the model is designed strictly for **binary classification** tasks. It does not yet support multiclass classification, and would require a One-vs-All or softmax-based extension to handle more than two classes.
 
-## 4.2 With more time:
-- Extend to multiclass classification
-- Implement tree pruning, feature importance, and calibrated probabilities
-- Add early stopping with validation sets
-- Improve performance with vectorized split finding and batching
+Additionally, our implementation does **not include tree pruning** or other automatic regularization mechanisms. This means trees are grown to a fixed depth as specified by the `max_depth` parameter, which may result in overfitting, especially on noisy datasets or those with limited data.
 
-## 4.3 Optional Enhancements Implemented (for Extra Credit)
-- Support for exponential loss (`AdaBoost` style)
-- Support for sample and class weighting
-- Early stopping with patience tracking
-- Loss history saved and plotted
-- Visual tools for loss curves and gradient magnitude tracking
-- Tests for accuracy on real-world datasets (`heart.csv`, `train.csv`)
+The model also lacks support for **hardware acceleration** and **parallel computation**. Since each decision tree is built sequentially and each boosting stage depends on the previous one, training can be computationally expensive for large datasets.
+
+Another limitation is the absence of automatic handling for **class imbalance**. If one class significantly outnumbers the other, the user must manually specify `class_weight` to help the model compensate during training. Without this, performance can suffer, especially on minority classes.
+
+## 4.2 Possible Improvements with More Time
+With additional time and resources, several enhancements could be made to overcome these limitations:
+
+First, we could **extend the model to support multiclass classification**, using techniques such as One-vs-All boosting, or adapting the loss function and prediction mechanism to handle softmax outputs directly.
+
+We could also implement **tree pruning** techniques to improve generalization and reduce overfitting. This could be combined with feature importance tracking, allowing users to interpret which variables have the greatest influence on predictions. Additionally, integrating probability calibration methods could improve confidence estimation in probabilistic outputs.
+
+Further, early stopping could be extended to use a **validation set** separate from training data, enabling more robust stopping criteria that generalize better to unseen inputs.
+
+Lastly, we could improve the model’s runtime performance by **vectorizing the tree split-finding process**, applying techniques like histogram-based binning, and potentially enabling multiprocessing for independent evaluations. These changes would significantly speed up training on large datasets without changing the model's behavior.
+
+## 4.3 Optional Enhancements Implemented
+Despite these limitations, we have already incorporated several **optional enhancements** to elevate the capabilities of our implementation beyond the project’s core requirements.
+
+We added support for the **exponential loss**, replicating AdaBoost-like behavior in the functional gradient descent framework. This allows users to choose between exponential and logistic loss functions depending on the learning context.
+
+We also included **per-class and per-sample weighting**, which enables the model to better handle class imbalance and biased training distributions.
+
+To prevent overfitting and reduce training time, we implemented an **early stopping mechanism** that halts training if no improvement in loss is observed after a fixed number of rounds.
+
+Furthermore, our model tracks and stores **loss history** throughout training, enabling visualization of convergence behavior. We created visual tools to **plot both the loss per iteration** and **the mean gradient magnitude**, giving insight into how much the model is learning at each step.
+
+Finally, we validated the model’s performance not only on synthetic patterns, but also on **real-world datasets** such as the Heart Disease and Titanic datasets, downloaded from Kaggle. These tests demonstrate the model’s practical utility and robustness across a wide range of data conditions.
 
 # 5. Code Execution.
 
