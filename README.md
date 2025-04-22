@@ -207,6 +207,8 @@ This includes:
 numpy
 matplotlib
 scikit-learn
+pytest
+pandas
 ```
 
 The `scikit-learn` library is only used for generating datasets and computing evaluation metrics. All model training logic is implemented from scratch using `numpy`.
