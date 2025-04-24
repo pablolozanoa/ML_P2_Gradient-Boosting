@@ -5,6 +5,31 @@
 
 ---
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Project Structure](#project-structure)
+- [What Does the Model Do and When Should It Be Used?](#1-what-does-the-model-do-and-when-should-it-be-used)
+  - [Use This Model When](#11-use-this-model-when)
+- [How Did You Test Your Model?](#2-how-did-you-test-your-model)
+  - [Step 1: Manually Generated Synthetic Datasets](#21-step-1-manually-generated-synthetic-datasets)
+  - [Step 2: Datasets from scikit-learn](#22-step-2-datasets-from-scikit-learn)
+  - [Step 3: Real-World Datasets (from Kaggle)](#23-step-3-real-world-datasets-from-kaggle)
+  - [Visual Tools](#24-visual-tools)
+- [Parameters Exposed for Tuning](#3-parameters-exposed-for-tuning)
+  - [Example Usage](#31-example-usage)
+  - [To Run the Full Demo with Plots](#32-to-run-the-full-demo-with-plots)
+- [Are There Specific Inputs the Model Struggles With?](#4-are-there-specific-inputs-the-model-struggles-with)
+  - [Current Limitations](#41-current-limitations)
+  - [Possible Improvements with More Time](#42-possible-improvements-with-more-time)
+  - [Optional Enhancements Implemented](#43-optional-enhancements-implemented)
+- [Code Execution](#5-code-execution)
+  - [Set Up the Environment](#51-set-up-the-environment)
+  - [Running the Gradient Boosting Model](#52-running-the-gradient-boosting-model)
+  - [Running the Full Test Suite](#53-running-the-full-test-suite)
+
+---
+
 # Overview
 
 This project implements a **Gradient Boosting Tree classifier** from scratch, as described in **Sections 10.9–10.10 of _The Elements of Statistical Learning (2nd Edition)_**.
